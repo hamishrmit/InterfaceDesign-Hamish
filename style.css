@@ -135,3 +135,7 @@ footer {
 /* compact breakpoint : phone in portrait */
 @media (width < 600px) {
 }
+
+.introSection p {
+  margin-top: 0;
+}
