@@ -141,7 +141,7 @@
             changes as the marker moves, getting bigger and warmer in colour as
             the sound gets brighter, and changing from a sharp square to a soft
             circle as the attack gets longer. The shape also pulses each time a
-            note is played, quickly for a short attack and a slower for a long
+            note is played, quickly for a short attack and slower for a long
             attack, so children can see the change in the sound as well as hear
             it. Research on young children notes that toddlers "can't pay
             attention for too long" (McQuillan et al., 2021), so this immediate
@@ -161,7 +161,7 @@
         </section>
 
         <section class="featuresSection">
-          <h2>Core Interactive Features</h2>
+          <h2>Core Features and Design System</h2>
           <p>
             Toy Synth has two main ways to interact with it: a keyboard for
             choosing which notes to play, and a spatial input pad for changing
@@ -255,6 +255,98 @@ synth.set({
             shape's current size, so when keys are played quickly the pulses
             blend smoothly into each other.
           </p>
+
+          <h3>Design System</h3>
+          <p>
+            The design system is based on a physical toy piano. Every element
+            shares the same visual language of thick dark outlines, rounded
+            corners, bright colours and a darker edge along the bottom that
+            makes things look chunky and pressable, so the whole interface is
+            like one toy and hints to toddlers that things can be pressed and
+            moved.
+          </p>
+          <p>
+            <strong>Layout:</strong> The pad and shape sit across the top with
+            the keyboard along the bottom, similar to OTS-01 from A1. The
+            keyboard is the largest element because it is the most familiar
+            starting point for a toddler, and everything fits on one screen
+            without scrolling.
+          </p>
+          <p>
+            <strong>Typography:</strong> Fredoka is a rounded and friendly
+            typeface that matches the toy-like shapes. Text is kept to a minimum
+            since the audience can't read yet, with only four short labels on
+            the pad for the adults playing alongside, and the note letters sit
+            at the bottom of the keys so the black keys don't cover them.
+          </p>
+          <p>
+            <strong>Colour:</strong> Each white key has its own rainbow colour,
+            stored as CSS variables and reused for the title, pad frame and "ok"
+            button so the colour scheme stays consistent. Outlines and text use
+            a dark navy instead of pure black which aims to keep good contrast
+            while feeling softer. Because the shape changes size and roundness
+            as well as colour, the feedback never relies on colour alone.
+          </p>
+          <p>
+            <strong>Motion:</strong> Motion is only used as feedback. Keys sink
+            down when played, the shape fades between colours, its pulse is
+            timed to the attack, and the cursor changes from an open to a closed
+            hand while dragging the marker.
+          </p>
+
+          <h3>Responsive Design</h3>
+          <p>
+            Toy Synth is fully responsive, scaling smoothly with the window
+            instead of jumping between fixed layouts. Its main sizes are CSS
+            variables worked out with <code>clamp()</code>,
+            <code>min()</code> and <code>calc()</code> from the window's width
+            and height, so each element stays at full size until it runs out of
+            room, then shrinks just enough to keep everything on screen. It
+            works in both Chrome and Firefox across all four screen sizes:
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Screen size</th>
+                <th>Width</th>
+                <th>How Toy Synth adapts</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Medium</td>
+                <td>Less than 840px</td>
+                <td>
+                  The shape shrinks first so the pad stays large enough to use,
+                  and the keyboard grows taller to fill the spare height.
+                </td>
+              </tr>
+              <tr>
+                <td>Expanded</td>
+                <td>840px to 1199px</td>
+                <td>
+                  The keyboard fills the window width, with the pad, shape and
+                  labels scaling down to fit.
+                </td>
+              </tr>
+              <tr>
+                <td>Large</td>
+                <td>1200px to 1600px</td>
+                <td>
+                  The keyboard reaches its full width, with the pad and shape at
+                  the same size above it.
+                </td>
+              </tr>
+              <tr>
+                <td>Extra-large</td>
+                <td>Greater than 1600px</td>
+                <td>
+                  Everything reaches its maximum size and the extra space is
+                  shared evenly around the instrument.
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </section>
       </main>
 
