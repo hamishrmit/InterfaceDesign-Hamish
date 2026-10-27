@@ -150,13 +150,110 @@
           </p>
           <h3>Worth</h3>
           <p>
-            Similar to Little Alchemy 2, which I looked at in Assignment 1, the
-            worth of Toy Synth comes from the sense of discovery. Children can
-            begin by simply pressing keys, then gradually work out that moving
-            the marker changes how those notes sound. Without needing any
-            musical vocabulary, they are building an early understanding of
-            ideas like pitch, tone and how a sound starts, which gives the
-            instrument value beyond just making noise.
+            Similar to Little Alchemy 2, which I looked at in A1, the worth of
+            Toy Synth comes from the sense of discovery. Children can begin by
+            simply pressing keys, then gradually work out that moving the marker
+            changes how those notes sound. Without needing any musical
+            vocabulary, they are building an early understanding of ideas like
+            pitch, tone and how a sound starts, which gives the instrument value
+            beyond just making noise.
+          </p>
+        </section>
+
+        <section class="featuresSection">
+          <h2>Core Interactive Features</h2>
+          <p>
+            Toy Synth has two main ways to interact with it: a keyboard for
+            choosing which notes to play, and a spatial input pad for changing
+            how the notes sound. A shape next to the pad then shows the effect
+            of both, so every action has a visual response as well as a sound.
+            Because browsers don't allow sound to play until the user interacts
+            with the page, the instrument opens with a short message reminding
+            the user to check the volume, and pressing "ok" starts the audio.
+            The code for the instrument can be found in my
+            <a
+              href="https://github.com/hamishrmit/audioinstrument-hamish"
+              target="_blank"
+              >Toy Synth GitHub repo</a
+            >.
+          </p>
+
+          <h3>Keyboard</h3>
+          <p>
+            The keyboard covers one octave from C to C. Notes can be played by
+            clicking the keys, or by holding the mouse down and sweeping across
+            them so children don't need to click each one precisely. Notes can
+            also be played with the computer keyboard, using
+            <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> <kbd>F</kbd> <kbd>G</kbd>
+            <kbd>H</kbd> <kbd>J</kbd> <kbd>K</kbd> for the white keys and
+            <kbd>W</kbd> <kbd>E</kbd> <kbd>T</kbd> <kbd>Y</kbd> <kbd>U</kbd>
+            for the black keys, following the same layout as a piano which is
+            good for real practice. This gives toddlers (and the adults playing
+            with them) a second, faster way to play, which I felt was missing
+            from the online toy piano I looked at in A1. The synth is polyphonic
+            so several notes can be played at once.
+          </p>
+
+          <h3>Spatial Input Pad (Extended Technique)</h3>
+          <p>
+            The extended technique I used in Toy Synth is spatial input, where
+            the position of the mouse controls the parameters of the sound. When
+            the user presses down on the pad and drags, the marker follows the
+            mouse, and when they let go it stays where it is, so the sound stays
+            the same until they decide to move it again. Each time the mouse
+            moves, its position is converted into a number from 0 to 100 for
+            each axis, and these numbers set two parts of the synthesiser:
+          </p>
+          <ul>
+            <li>
+              <strong>Horizontal (Muffled to Bright):</strong> controls the
+              frequency of a low-pass filter, from 200Hz on the left to 5000Hz
+              on the right.
+            </li>
+            <li>
+              <strong>Vertical (Short to Long):</strong> controls the attack of
+              the envelope, or how long a note takes to fade in, from 0.01
+              seconds at the top to 1 second at the bottom.
+            </li>
+          </ul>
+          <pre><code>// X axis controls filter frequency
+filter.frequency.value = 200 * Math.pow(25, x / 100);
+
+// Y axis controls envelope attack
+synth.set({
+  envelope: {
+    attack: 0.01 + (y / 100) * 0.99,
+  },
+});</code></pre>
+          <p>
+            Our ears notice changes in low sounds much more than changes in high
+            sounds, so the filter changes by a bigger amount the further right
+            the marker goes, making the same distance sound like the same amount
+            of change anywhere on the pad. I chose filter and attack because
+            they make clear, noticeable changes to the sound while staying
+            simple to explore, which I found while testing different
+            combinations in my A2 prototypes. The spatial input code was
+            inspired by
+            <a
+              href="https://github.com/rmit-idad-2650-wed/input-event-demos"
+              target="_blank"
+              >Patrick's XYController example</a
+            >.
+          </p>
+
+          <h3>Shape Feedback</h3>
+          <p>
+            Next to the pad is a large shape that changes with the marker.
+            Moving towards Bright makes it bigger and changes its colour from
+            cool blue to warm yellow, and moving towards Long changes it from a
+            sharp square to a soft circle while its colour becomes more pastel.
+            This is based on the idea that people tend to link sharp, spiky
+            shapes with sharp sounds and round shapes with soft sounds. Every
+            time a new note starts the shape also pulses (to give extra visual
+            feedback), quickly for a short attack and slower for a long one. The
+            pulse is made with the Web Animations API and always starts from the
+            shape's current size, so when keys are played quickly the pulses
+            blend smoothly into each other.
           </p>
         </section>
       </main>
