@@ -149,7 +149,7 @@ td {
   /*here i'm providing colour as a separate declaration because i'm using a custom property defined in my style.css */
   /*writing it by itself with a fallback (the black declared in the original border value) means if it can't be found
     something will still display*/
-  border-color: var(--colour-02);
+  border-color: var(--colour-1);
 }
 
 table {
@@ -162,6 +162,32 @@ td {
 }
 
 th {
-  background-color: var(--colour-02);
-  color: var(--colour-01);
+  background-color: var(--colour-1);
+  color: var(--colour-2);
+}
+
+/* screenshots of the finished instrument */
+.screenshot {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-block: 1rem;
+}
+
+.screenshot img {
+  width: 100%;
+  height: auto;
+  border: solid 1px var(--colour-1);
+}
+
+.screenshot figcaption {
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* the four screen size screenshots sit in a 2 by 2 grid */
+.screenshotGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
